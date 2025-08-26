@@ -9,25 +9,43 @@ namespace UmaInheritanceCalculator.UmaCalculations
 {
     internal class UmaCalculator
     {
-        private double parentToParentScore;
-        public UmaCalculator(List<Uma> umas)
+        private List<Uma> UmaParentOneLineage;
+        private List<Uma> UmaParentTwoLineage;
+
+        public UmaCalculator(List<Uma> umaParentTwoLineage, List<Uma> umaParentOneLineage)
         {
+            UmaParentOneLineage = umaParentOneLineage;
+            UmaParentTwoLineage = umaParentTwoLineage;
         }
 
-        public double CalculateUmaSparkChance(Spark spark)
+        public double CalculateUmaSparkChance(Spark spark, int compatibilityScore)
         {
-            return (1 + 0/100) * (UmaSparkDB.GetSparkChance(spark));
+            return (1 + compatibilityScore / 100) * (UmaSparkDB.GetSparkChance(spark));
         }
 
-        
-        public double CalculateCompatibilityScore(Uma uma)
+        public List<int> CalculateCompatibilityScores()
         {
-            return 
+            List<int> compatibilityScores = [0, 0];
+            if (UmaParentOneLineage.Count == 0 || UmaParentTwoLineage.Count == 0)
+            {
+                return compatibilityScores;
+            }
+            else
+            {
+                compatibilityScores[0] = CalculateCompatibilityScore(UmaParentOneLineage);
+                compatibilityScores[1] = CalculateCompatibilityScore(UmaParentTwoLineage);
+                return compatibilityScores;
+            }
         }
 
-        public double CalculateCompatibilityScore(List<Uma> umas)
+        public int CalculateCompatibilityScore(List<Uma> umas)
         {
-
+            var compatibilityScore = 0;
+            foreach (Uma uma in umas)
+            {
+                compatibilityScore += uma.CompatibilityScore;
+            }
+            return compatibilityScore;
         }
     }
 }
