@@ -8,7 +8,7 @@ namespace UmaInheritanceCalculator.UmaObjects
 {
     internal class UmaDB
     {
-        public static Dictionary<string, string> Umas;
+        public static Dictionary<string, string> Umas { get; set; }
         static UmaDB()
         {
             Umas = new Dictionary<string, string>()

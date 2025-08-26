@@ -8,9 +8,9 @@ namespace UmaInheritanceCalculator.UmaObjects
 {
     internal class Spark
     {
-        public string SparkType;
-        public string SparkName;
-        public string SparkStars;
+        public string SparkType { get; set; }
+        public string SparkName {  get; set; }
+        public string SparkStars {  get; set; }
 
         private static Dictionary<string, string> Sparks => new Dictionary<string, string>()
         {
@@ -61,10 +61,10 @@ namespace UmaInheritanceCalculator.UmaObjects
             ["Tokyo Daishoten"] = "White Race"
         };
 
-        public Spark(string SparkName, string SparkStars) 
+        public Spark(string sparkName, string sparkStars) 
         {
-            this.SparkStars = SparkStars;
-            this.SparkType = "White";
+            SparkStars = sparkStars;
+            SparkType = "White";
             if (SparkName == null) throw new ArgumentNullException(nameof(SparkName));
             
             foreach (string sparkNames in Sparks.Keys)
@@ -73,7 +73,7 @@ namespace UmaInheritanceCalculator.UmaObjects
                 {
                     string localSparkType;
                     Sparks.TryGetValue(sparkNames, out localSparkType);
-                    this.SparkType = localSparkType;
+                    SparkType = localSparkType;
                 }
             }
         }
